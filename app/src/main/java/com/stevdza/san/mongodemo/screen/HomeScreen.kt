@@ -21,7 +21,6 @@ import java.time.Instant
 import java.util.*
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     data: List<Person>,
@@ -53,7 +52,6 @@ fun HomeScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeContent(
     data: List<Person>,

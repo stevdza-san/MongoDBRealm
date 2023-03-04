@@ -1,6 +1,7 @@
 package com.stevdza.san.mongodemo.model
 
 import io.realm.kotlin.ext.realmListOf
+import io.realm.kotlin.types.EmbeddedRealmObject
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
@@ -22,11 +23,11 @@ class Person : RealmObject {
     var timestamp: RealmInstant = RealmInstant.now()
 }
 
-class Address : RealmObject {
+class Address : EmbeddedRealmObject {
     var streetName: String = ""
     var streetNumber: Int = 0
 }
 
-class Pet: RealmObject {
+class Pet: EmbeddedRealmObject {
     var type: String = ""
 }

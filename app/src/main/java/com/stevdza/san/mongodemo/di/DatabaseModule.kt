@@ -26,7 +26,6 @@ object DatabaseModule {
             )
         )
             .compactOnLaunch()
-//            .initialData()
             .build()
         return Realm.open(config)
     }
