@@ -1,4 +1,4 @@
-package com.stevdza.san.mongodemo.screen
+package com.stevdza.san.mongodemo.screen.home
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.horizontalScroll

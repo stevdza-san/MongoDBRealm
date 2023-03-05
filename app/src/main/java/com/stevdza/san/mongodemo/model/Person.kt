@@ -13,6 +13,7 @@ import org.mongodb.kbson.ObjectId
 class Person : RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId.invoke()
+    var owner_id: String = ""
     var name: String = ""
     @Index
     var age: Int = 18

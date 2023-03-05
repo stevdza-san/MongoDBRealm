@@ -2,8 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'io.realm.kotlin'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -68,13 +66,16 @@ dependencies {
 
     // Mongo Realm
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
-    implementation 'io.realm.kotlin:library-base:1.6.1'
+    implementation 'io.realm.kotlin:library-sync:1.6.0'
 
-    // Dagger Hilt
-    implementation "com.google.dagger:hilt-android:2.44.2"
-    kapt "com.google.dagger:hilt-compiler:2.44.2"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
     // Desugar JDK
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+
+    // Message Bar Compose
+    implementation 'com.github.stevdza-san:MessageBarCompose:1.0.5'
+
+    // One-Tap Compose
+    implementation 'com.github.stevdza-san:OneTapCompose:1.0.0'
 }

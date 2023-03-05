@@ -1,20 +1,15 @@
-package com.stevdza.san.mongodemo.screen
+package com.stevdza.san.mongodemo.screen.home
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stevdza.san.mongodemo.data.MongoRepository
+import com.stevdza.san.mongodemo.data.MongoDB
 import com.stevdza.san.mongodemo.model.Person
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.mongodb.kbson.ObjectId
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val repository: MongoRepository
-) : ViewModel() {
+class HomeViewModel : ViewModel() {
     var name = mutableStateOf("")
     var objectId = mutableStateOf("")
     var filtered = mutableStateOf(false)
@@ -22,7 +17,7 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.getData().collect {
+            MongoDB.getData().collect {
                 data.value = it
             }
         }
@@ -39,7 +34,7 @@ class HomeViewModel @Inject constructor(
     fun insertPerson() {
         viewModelScope.launch(Dispatchers.IO) {
             if (name.value.isNotEmpty()) {
-                repository.insertPerson(person = Person().apply {
+                MongoDB.insertPerson(person = Person().apply {
                     name = this@HomeViewModel.name.value
                 })
             }
@@ -49,7 +44,7 @@ class HomeViewModel @Inject constructor(
     fun updatePerson() {
         viewModelScope.launch(Dispatchers.IO) {
             if (objectId.value.isNotEmpty()) {
-                repository.updatePerson(person = Person().apply {
+                MongoDB.updatePerson(person = Person().apply {
                     _id = ObjectId(hexString = this@HomeViewModel.objectId.value)
                     name = this@HomeViewModel.name.value
                 })
@@ -60,7 +55,7 @@ class HomeViewModel @Inject constructor(
     fun deletePerson() {
         viewModelScope.launch {
             if (objectId.value.isNotEmpty()) {
-                repository.deletePerson(id = ObjectId(hexString = objectId.value))
+                MongoDB.deletePerson(id = ObjectId(hexString = objectId.value))
             }
         }
     }
@@ -68,13 +63,13 @@ class HomeViewModel @Inject constructor(
     fun filterData() {
         viewModelScope.launch(Dispatchers.IO) {
             if (filtered.value) {
-                repository.getData().collect {
+                MongoDB.getData().collect {
                     filtered.value = false
                     name.value = ""
                     data.value = it
                 }
             } else {
-                repository.filterData(name = name.value).collect {
+                MongoDB.filterData(name = name.value).collect {
                     filtered.value = true
                     data.value = it
                 }
